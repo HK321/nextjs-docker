@@ -12,7 +12,6 @@ yarn dev
 # or
 pnpm dev
 # or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -35,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Dockerfile
+
+This project includes a Dockerfile for containerizing the application. The Dockerfile uses multistage builds to optimize the image size and improve security.
+
+### Multistage Builds
+
+Multistage builds allow you to use multiple `FROM` statements in your Dockerfile, each creating a new stage. This helps in keeping the final image small and secure by copying only the necessary artifacts from the build stages.
+
+### Security Improvements
+
+1. **Use a minimal base image**: Using `node:18-alpine` reduces the attack surface by including only the necessary components.
+2. **Run as a non-root user**: Add a non-root user to avoid running the application as the root user.
+3. **Copy only necessary files**: Use `.dockerignore` to exclude unnecessary files from the Docker build context.
+
+Make sure to create a `.dockerignore` file to exclude unnecessary files:
+
